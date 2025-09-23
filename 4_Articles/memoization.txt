@@ -1,0 +1,71 @@
+A memoized value in programming is a value that has been computed once and then cached (stored) so that future requests for the same computation can return the stored result immediately instead of recalculating it.
+
+This technique is called memoization (not to be confused with memorization). It’s commonly used to optimize expensive or repetitive function calls.
+
+How it works:
+
+1_ A function takes an input.
+
+2_ The program checks if the result for that input is already stored (memoized).
+
+	If yes → return the cached result.
+
+	If no → compute the result, store it, and then return it.
+
+
+Example in Python
+# Without memoization: recomputes Fibonacci every time
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n-1) + fib(n-2)
+
+# With memoization
+memo = {}
+def fib_memo(n):
+    if n in memo:
+        return memo[n]
+    if n <= 1:
+        memo[n] = n
+    else:
+        memo[n] = fib_memo(n-1) + fib_memo(n-2)
+    return memo[n]
+
+print(fib_memo(50))  
+# Much faster than plain recursion
+
+
+⚡ Difference
+1. Scope / Purpose
+
+_Memoization
+
+Specific technique where a function remembers the results of its inputs → output mapping.
+
+Usually implemented inside the function itself.
+
+Example: storing results of fib(10) so fib(10) doesn’t get recomputed.
+
+_Caching
+
+Broader concept: storing any data (not just function results) for faster future access.
+
+Can be used for files, API calls, database queries, web resources, etc.
+
+Example: a browser caches images and scripts to avoid re-downloading them.
+
+
+2. Granularity
+
+_Memoization = fine-grained → remembers results per function input.
+
+_Caching = coarse-grained → might store large chunks of data (whole pages, query results, files).
+
+3. Location
+
+_Memoization: lives within the program’s memory (RAM, usually tied to function scope).
+
+_Caching: can be in memory, on disk, in a database, or even a distributed system (like Redis, CDN caches).
+
+
+
